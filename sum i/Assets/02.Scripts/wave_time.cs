@@ -4,25 +4,27 @@ using UnityEngine;
 
 public class wave_time : MonoBehaviour
 {
+    private GameObject cameraObject;
     Rigidbody2D rigid;
     public float UpWaveTime;
     public float DownWaveTime;
+    public float UpWaveLength;
+    public float DownWaveLength;
     public GameObject wave;
-    bool isWave = true;
+    public int waveTurn = 0;
+    public int maxWaveTurn = 7;
     
     // Start is called before the first frame update
     void Start()
     {
+        cameraObject = GameObject.Find("Main Camera");
         rigid = GetComponent<Rigidbody2D>();
         StartCoroutine(Move()); // Move 함수를 Coroutine으로 호출
     }
 
     void Update()
     {
-        if (!isWave)
-        {
-            StartCoroutine(Move());
-        }
+        transform.position = new Vector3(cameraObject.transform.position.x, transform.position.y, transform.position.z);
     }
 
     IEnumerator Move()
@@ -30,15 +32,19 @@ public class wave_time : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(UpWaveTime);
-            this.transform.Translate(new Vector3(0, 3, 0));
+            if (waveTurn == maxWaveTurn)
+            {
+                UpWaveLength = 99;
+            }
+            this.transform.Translate(new Vector3(0, UpWaveLength, 0));
             AudioManager.Inst.PlaySFX("ship_sound");
             Debug.Log("배소리");
             yield return new WaitForSeconds(DownWaveTime);
-            this.transform.Translate(new Vector3(0, -1, 0));
+            this.transform.Translate(new Vector3(0, DownWaveLength, 0));
             AudioManager.Inst.PlaySFX("water");
             Debug.Log("물내려가는소리");
 
-            isWave = true;
+            waveTurn++;
         }
     }
 }
