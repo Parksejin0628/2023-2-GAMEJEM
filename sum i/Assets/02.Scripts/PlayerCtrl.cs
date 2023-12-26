@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Windows;
+using UnityEngine.SceneManagement;
 
 public class PlayerCtrl : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class PlayerCtrl : MonoBehaviour
     public float jumpingBlockPower = 20.0f;
     public bool canMove = true;
     public bool isHit = true;
+    public string SceneName = "Main Scene";
 
     Vector2 wasdVector;
 
@@ -78,6 +80,10 @@ public class PlayerCtrl : MonoBehaviour
             AudioManager.Inst.PlaySFX("equip_mandarine");
             currentHp++;
             coll.gameObject.SetActive(false);
+        }
+        if(coll.CompareTag("Wave"))
+        {
+            SceneManager.LoadScene(SceneName);
         }
     }
 
