@@ -5,9 +5,11 @@ public class Monster_1 : MonoBehaviour
 {
     public GameObject bulletPrefab;
     public Transform firePoint;
+    public Transform finder;
     public float bulletSpeed = 10f; // 총알 속도
     public float raycastDistance = 100f; // 레이캐스트 거리
-    public string playerTag = "Player"; // 플레이어 태그
+    
+    // 플레이어 태그
     Animator m1_anim;
     private bool isFacingRight = true;
     private Transform playerTransform;
@@ -19,12 +21,15 @@ public class Monster_1 : MonoBehaviour
     {
         m1_anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        playerTransform = GameObject.FindGameObjectWithTag(playerTag).transform;
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
 
         // Start the shooting coroutine
         StartCoroutine(ShootEveryThreeSeconds());
     }
+    void Update()
+    {
 
+    }
     IEnumerator ShootEveryThreeSeconds()
     {
         while (true)
@@ -33,10 +38,12 @@ public class Monster_1 : MonoBehaviour
             yield return new WaitForSeconds(attackspeed);
 
             // Check for the player and shoot
-            RaycastHit2D hitLeft = Physics2D.Raycast(firePoint.position, Vector2.left, raycastDistance);
-            RaycastHit2D hitRight = Physics2D.Raycast(firePoint.position, Vector2.right, raycastDistance);
+            RaycastHit2D hitLeft = Physics2D.Raycast(finder.position, Vector2.left, raycastDistance);
+            RaycastHit2D hitRight = Physics2D.Raycast(finder.position, Vector2.right, raycastDistance);
 
-            if ((hitLeft.collider != null && hitLeft.collider.CompareTag(playerTag)))
+            Debug.Log("Left Hit Collider: " + hitLeft.collider);
+            Debug.Log("Right Hit Collider: " + hitRight.collider);
+            if ((hitLeft.collider != null && hitLeft.collider.CompareTag("Player")))
             {
                 direction = Vector2.left;
                 m1_anim.SetTrigger("isAttack");
@@ -45,7 +52,7 @@ public class Monster_1 : MonoBehaviour
 
 
             }
-            else if ((hitRight.collider != null && hitRight.collider.CompareTag(playerTag)))
+            else if ((hitRight.collider != null && hitRight.collider.CompareTag("Player")))
             {
 
                 direction = Vector2.right;
@@ -59,7 +66,6 @@ public class Monster_1 : MonoBehaviour
     }
     private void FlipToPlayer()
     {
-        // Compare the player's position with the monster's position
         if (playerTransform.position.x > transform.position.x && isFacingRight)
         {
             Flip();
@@ -72,10 +78,8 @@ public class Monster_1 : MonoBehaviour
 
     private void Flip()
     {
-        // 현재 상태를 반전
         isFacingRight = !isFacingRight;
 
-        // SpriteRenderer를 이용하여 스프라이트를 뒤집음
         spriteRenderer.flipX = !isFacingRight;
     }
 
