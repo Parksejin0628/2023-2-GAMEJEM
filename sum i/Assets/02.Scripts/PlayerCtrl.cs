@@ -26,7 +26,7 @@ public class PlayerCtrl : MonoBehaviour
     public float knockBackTime = 0.25f;
     public float invincibilityTime = 1.0f;
     //±‚≈∏
-    public float jumpingBlockPower = 20.0f;
+    public float jumpingBlockPower = 15.0f;
     public bool canMove = true;
     public bool isHit = true;
     public string SceneName = "Main Scene";
@@ -44,13 +44,15 @@ public class PlayerCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(currentHp<0)
+        if(currentHp < 0)
         {
             currentHp = 0;
+            //GameOver
         }
         if(currentHp>maxHp)
         {
             currentHp = maxHp;
+            //GameEnding
         }
     }
 
@@ -95,26 +97,31 @@ public class PlayerCtrl : MonoBehaviour
         }
         if(coll.gameObject.CompareTag("Shell"))
         {
+            AudioManager.Inst.PlaySFX("char_damaged");
             currentHp -= 1;
             StartCoroutine(KnockBack());
         }
         else if (coll.gameObject.CompareTag("StoneCrab"))
         {
+            AudioManager.Inst.PlaySFX("char_damaged");
             currentHp -= 2;
             StartCoroutine(KnockBack());
         }
         else if (coll.gameObject.CompareTag("Mudskipper"))
         {
+            AudioManager.Inst.PlaySFX("char_damaged");
             currentHp -= 1;
             StartCoroutine(KnockBack());
         }
         else if (coll.gameObject.CompareTag("Octopus"))
         {
+            AudioManager.Inst.PlaySFX("char_damaged");
             currentHp -= 3;
             StartCoroutine(KnockBack());
         }
         else if (coll.gameObject.CompareTag("SolenStrictus"))
         {
+            AudioManager.Inst.PlaySFX("char_damaged");
             currentHp -= 2;
             StartCoroutine(KnockBack());
         }

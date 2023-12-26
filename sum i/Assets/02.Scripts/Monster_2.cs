@@ -48,15 +48,6 @@ public class Monster_2 : MonoBehaviour
         transform.Translate(movement);
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Wall"))
-        {
-            Flip();
-        }
-       
-    }
-
     void Flip()
     {
         isFacingRight = !isFacingRight;

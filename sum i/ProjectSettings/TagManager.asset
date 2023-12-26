@@ -12,6 +12,7 @@ TagManager:
   - Mudskipper
   - Octopus
   - SolenStrictus
+  - Wall
   layers:
   - Default
   - TransparentFX

@@ -125,7 +125,7 @@ MonoBehaviour:
   pauseTime: 2
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
 --- !u!61 &2713583399836348767
 BoxCollider2D:
   m_ObjectHideFlags: 0
