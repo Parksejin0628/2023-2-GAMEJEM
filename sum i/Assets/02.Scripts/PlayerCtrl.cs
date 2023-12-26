@@ -8,12 +8,15 @@ public class PlayerCtrl : MonoBehaviour
 {
     // Start is called before the first frame update
     private Rigidbody2D rigidbody2D;
-
+    //움직임과 관련된 변수
     public float moveSpeed = 3.0f;
     public float jumpPower = 10.0f;
     public float rayDistance = 0.2f;
     public int maxJumpCount = 1;
     public int jumpCount = 1;
+    //플레이어 정보
+    public int maxHp = 8;
+    public int currentHp = 0;
 
     Vector2 wasdVector;
 
