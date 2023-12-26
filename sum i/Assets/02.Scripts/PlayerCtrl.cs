@@ -85,7 +85,7 @@ public class PlayerCtrl : MonoBehaviour
         }
         if(coll.CompareTag("Wave"))
         {
-            SceneManager.LoadScene(SceneName);
+            GameManager.instance.DeadPlayer();
         }
     }
 
@@ -205,5 +205,7 @@ public class PlayerCtrl : MonoBehaviour
         }
         isHit = true;
     }
+
+
 
 }
