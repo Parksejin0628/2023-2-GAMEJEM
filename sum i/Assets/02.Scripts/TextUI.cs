@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -21,14 +20,23 @@ public class TextUI : MonoBehaviour
 
         rectTransform = GetComponent<RectTransform>();
 
-        StartCoroutine(textPrint(delay));
+        StartCoroutine(RandomTextPrint());
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+
+    }
+
+    IEnumerator RandomTextPrint()
+    {
+        while (true)
         {
-            StartCoroutine(textPrint(delay));
+            yield return StartCoroutine(textPrint(delay));
+
+            // Generate a random delay for the next iteration
+            float randomDelay = Random.Range(1f, 3f);
+            yield return new WaitForSeconds(randomDelay);
         }
     }
 
@@ -48,24 +56,19 @@ public class TextUI : MonoBehaviour
             yield return new WaitForSeconds(delay);
         }
 
-        // Add a delay before clearing the text
-        yield return new WaitForSeconds(2f); // Adjust the delay time as needed
+        yield return new WaitForSeconds(2f);
 
-        targetText.text = ""; // Clear the text
+        targetText.text = "";
 
         yield return new WaitForSeconds(1f);
-
     }
 
     void ApplyRandomTransform()
     {
-        randomPositionOffset = new Vector3(Random.Range(-400f, 400f), Random.Range(-180f, 180f), 0f);
+        randomPositionOffset = new Vector3(Random.Range(-850f, -850f), Random.Range(-480f, 480f), 0f);
         randomRotationAngles = new Vector3(0f, 0f, Random.Range(-40f, 40f));
 
-        // Apply the random offsets relative to RectTransform
         rectTransform.anchoredPosition = randomPositionOffset;
-
-        // Use Quaternion.Euler to create a rotation quaternion from Euler angles
         rectTransform.localRotation = Quaternion.Euler(randomRotationAngles);
     }
 }
