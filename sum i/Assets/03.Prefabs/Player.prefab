@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2358466152246671547}
   - component: {fileID: 3784510493321353045}
   - component: {fileID: 7261623923836383359}
+  - component: {fileID: 7516677185171796387}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -179,6 +180,7 @@ MonoBehaviour:
   jumpCount: 1
   maxHp: 8
   currentHp: 0
+  jumpingBlockPower: 20
 --- !u!114 &7261623923836383359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,3 +211,24 @@ MonoBehaviour:
   m_DefaultActionMap: PlayerAction
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!95 &7516677185171796387
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886936194367889474}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c61c49ac6a2906d45817eb270122ee76, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

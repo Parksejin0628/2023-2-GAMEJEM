@@ -8,6 +8,8 @@ public class PlayerCtrl : MonoBehaviour
 {
     // Start is called before the first frame update
     private Rigidbody2D rigidbody2D;
+    private SpriteRenderer spriteRenderer;
+    private Animator anim;
     //움직임과 관련된 변수
     public float moveSpeed = 3.0f;
     public float jumpPower = 10.0f;
@@ -17,12 +19,16 @@ public class PlayerCtrl : MonoBehaviour
     //플레이어 정보
     public int maxHp = 8;
     public int currentHp = 0;
+    //기타
+    public float jumpingBlockPower = 20.0f;
 
     Vector2 wasdVector;
 
     void Start()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -33,11 +39,20 @@ public class PlayerCtrl : MonoBehaviour
 
     private void FixedUpdate()
     {
+        RaycastHit2D hit;
+        CheckIsGround(LayerMask.GetMask("Ground"), out hit);
         Move();
-        if (rigidbody2D.velocity.y < 0 && CheckIsGround(LayerMask.GetMask("Ground"), out RaycastHit2D hit))
+        if (rigidbody2D.velocity.y < 0 && hit == true)
         {
             jumpCount = maxJumpCount;
         }
+        if(hit == true && hit.collider.CompareTag("JumpingBlock"))
+        {
+            rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpingBlockPower);
+        }
+        anim.SetBool("isWalk", rigidbody2D.velocity.x != 0);
+        anim.SetFloat("velocityY", rigidbody2D.velocity.y);
+        anim.SetBool("isFloat", !hit);
     }
 
     private void OnTriggerEnter2D(Collider2D coll)
@@ -51,7 +66,15 @@ public class PlayerCtrl : MonoBehaviour
 
     void Move()
     {
-        rigidbody2D.velocity = new Vector2(wasdVector.x * moveSpeed, rigidbody2D.velocity.y);
+        rigidbody2D.velocity = new Vector2(wasdVector.x * moveSpeed, rigidbody2D.velocity.y); 
+        if(wasdVector.x > 0)
+        {
+            spriteRenderer.flipX = false;
+        }
+        if (wasdVector.x < 0)
+        {
+            spriteRenderer.flipX = true;
+        }
     }
     bool CheckIsGround(LayerMask layerMask, out RaycastHit2D hit) //layerMask 태크를 가진 땅인지 체크하는 함수
     {
@@ -82,6 +105,10 @@ public class PlayerCtrl : MonoBehaviour
             if (jumpCount == maxJumpCount)
             {
                 jumpCount--;
+                if(jumpCount <= 0)
+                {
+                    return;
+                }
             }
             rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpPower);
             jumpCount--;

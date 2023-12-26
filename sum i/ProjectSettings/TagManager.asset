@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Orange
   - Ground
+  - JumpingBlock
   layers:
   - Default
   - TransparentFX
