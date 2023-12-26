@@ -6,77 +6,70 @@ public class Monster_3 : MonoBehaviour
     SpriteRenderer spriteRenderer;
     Animator m3_anim;
     Rigidbody2D Rig2;
-    public float moveSpeed; 
-    public float jumpForce; 
-    public LayerMask Ground; 
-    public float pauseTime = 2f; 
+    public float moveSpeed;
+    public float jumpForce;
+    public LayerMask Ground;
+    public float pauseTime = 2f;
     bool isPaused = false;
     bool isFacingRight = true;
-    bool isGrounded = true;
+    bool isGrounded = false;
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         m3_anim = GetComponent<Animator>();
         Rig2 = GetComponent<Rigidbody2D>();
-        StartCoroutine(RandomPause());
+        StartCoroutine(PauseAndMove());
     }
 
     void Update()
     {
-        Debug.Log(isGrounded);
-
-
-        if (!isPaused)
+        if (!isPaused && isGrounded)
         {
-            Move();
+            m3_anim.SetBool("isRun", true);
 
-            if (isGrounded)
-            {
-                Rig2.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
-                isGrounded = false;
-            }
+
+            float moveDirection = isFacingRight ? -0.5f : 0.5f;
+
+            Vector2 moveForce = new Vector2(moveDirection * moveSpeed, jumpForce);
+
+            Rig2.AddForce(moveForce, ForceMode2D.Impulse);
+
+            Flip();
+
+            isGrounded = false;
         }
     }
 
-    void Move()
-    {
-        m3_anim.SetBool("isRun", true);
-
-        if (!isPaused)
-        {
-            float moveDirection = isFacingRight ? 1 : -1;
-            Vector3 movement = new Vector3(moveDirection * moveSpeed * Time.deltaTime, 0, 0);
-            transform.Translate(movement);
-        }
-    }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (((1 << collision.gameObject.layer) & Ground) != 0)
         {
-            isGrounded = true;
-        }
-        else
-        {
-            Flip();
+            StartCoroutine(GroundCheckCoroutine());
         }
     }
 
     void Flip()
     {
-        isFacingRight = Random.Range(0, 2) == 0;
-        spriteRenderer.flipX = !isFacingRight;
+        isFacingRight = !isFacingRight;
+        spriteRenderer.flipX = isFacingRight;
     }
 
-    IEnumerator RandomPause()
+    IEnumerator PauseAndMove()
     {
         while (true)
         {
             Flip();
-            m3_anim.SetBool("isRun", false);
             isPaused = !isPaused;
-            yield return new WaitForSeconds(Random.Range(1f, pauseTime));
+            m3_anim.SetBool("isRun", false);
+            yield return new WaitForSeconds(pauseTime);
         }
+    }
+
+    IEnumerator GroundCheckCoroutine()
+    {
+        yield return new WaitForSeconds(1f);
+        isGrounded = true;
     }
 }

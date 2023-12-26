@@ -197,5 +197,5 @@ MonoBehaviour:
   jumpForce: 2
   Ground:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   pauseTime: 2

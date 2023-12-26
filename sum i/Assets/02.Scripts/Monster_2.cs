@@ -5,8 +5,9 @@ public class Monster_2 : MonoBehaviour
 {
     SpriteRenderer spriteRenderer;
     Animator m2_anim;
-    public float moveSpeed; // Adjust the speed as needed
-    public float pauseTime = 2f; // Adjust the pause time as needed
+    public float moveSpeed;
+    public float pauseTime = 2f;
+    public LayerMask groundLayer; 
     bool isPaused = false;
     bool isFacingRight = true;
 
@@ -29,12 +30,22 @@ public class Monster_2 : MonoBehaviour
     {
         m2_anim.SetBool("isRun", true);
 
-        if (!isPaused)
+        float moveDirection = isFacingRight ? 1 : -1;
+        Vector3 movement = new Vector3(moveDirection * moveSpeed * Time.deltaTime, 0, 0);
+
+        RaycastHit2D groundCheck = Physics2D.Raycast(transform.position, Vector2.down, 2.0f, groundLayer);
+
+        if (!groundCheck.collider)
         {
-            float moveDirection = isFacingRight ? 1 : -1;
-            Vector3 movement = new Vector3(moveDirection * moveSpeed * Time.deltaTime, 0, 0);
-            transform.Translate(movement);
+            RaycastHit2D nearbyGroundCheck = Physics2D.Raycast(transform.position + new Vector3(moveDirection * 0.5f, 0, 0), Vector2.down, 2.0f, groundLayer);
+
+            if (!nearbyGroundCheck.collider)
+            {
+                Flip();
+            }
         }
+
+        transform.Translate(movement);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -43,12 +54,13 @@ public class Monster_2 : MonoBehaviour
         {
             Flip();
         }
+       
     }
 
     void Flip()
     {
-        isFacingRight = Random.Range(0, 2) == 0; // Randomly set isFacingRight to true or false
-        spriteRenderer.flipX = !isFacingRight;
+        isFacingRight = !isFacingRight;
+        spriteRenderer.flipX = isFacingRight;
     }
 
     IEnumerator RandomPause()
