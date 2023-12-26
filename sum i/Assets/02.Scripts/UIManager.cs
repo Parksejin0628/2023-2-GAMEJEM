@@ -30,7 +30,7 @@ public class UIManager : MonoBehaviour
     }
     void Start()
     {
-        SceneStart = true;
+        //SceneStart = true;
         SetActiveImage(currentIndex);
         playerCtrl = player.GetComponent<PlayerCtrl>();
     }
