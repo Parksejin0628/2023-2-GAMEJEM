@@ -40,6 +40,7 @@ public class Monster_1 : MonoBehaviour
             {
                 direction = Vector2.left;
                 m1_anim.SetTrigger("isAttack");
+                AudioManager.Inst.PlaySFX("shell_spit");
                 FlipToPlayer();
 
 
@@ -49,6 +50,7 @@ public class Monster_1 : MonoBehaviour
 
                 direction = Vector2.right;
                 m1_anim.SetTrigger("isAttack");
+                AudioManager.Inst.PlaySFX("shell_spit");
                 FlipToPlayer();
 
 
