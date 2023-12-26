@@ -19,8 +19,15 @@ public class PlayerCtrl : MonoBehaviour
     //플레이어 정보
     public int maxHp = 8;
     public int currentHp = 0;
+    //피격시 정보
+    public float knockBackPowerX;
+    public float knockBackPowerY;
+    public float knockBackTime = 0.25f;
+    public float invincibilityTime = 1.0f;
     //기타
     public float jumpingBlockPower = 20.0f;
+    public bool canMove = true;
+    public bool isHit = true;
 
     Vector2 wasdVector;
 
@@ -34,7 +41,14 @@ public class PlayerCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(currentHp<0)
+        {
+            currentHp = 0;
+        }
+        if(currentHp>maxHp)
+        {
+            currentHp = maxHp;
+        }
     }
 
     private void FixedUpdate()
@@ -65,8 +79,45 @@ public class PlayerCtrl : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D coll)
+    {
+        if(isHit == false)
+        {
+            return;
+        }
+        if(coll.gameObject.CompareTag("Shell"))
+        {
+            currentHp -= 1;
+            StartCoroutine(KnockBack());
+        }
+        else if (coll.gameObject.CompareTag("StoneCrab"))
+        {
+            currentHp -= 2;
+            StartCoroutine(KnockBack());
+        }
+        else if (coll.gameObject.CompareTag("Mudskipper"))
+        {
+            currentHp -= 1;
+            StartCoroutine(KnockBack());
+        }
+        else if (coll.gameObject.CompareTag("Octopus"))
+        {
+            currentHp -= 3;
+            StartCoroutine(KnockBack());
+        }
+        else if (coll.gameObject.CompareTag("SolenStrictus"))
+        {
+            currentHp -= 2;
+            StartCoroutine(KnockBack());
+        }
+    }
+
     void Move()
     {
+        if(canMove == false)
+        {
+            return;
+        }
         rigidbody2D.velocity = new Vector2(wasdVector.x * moveSpeed, rigidbody2D.velocity.y); 
         if(wasdVector.x > 0)
         {
@@ -96,6 +147,10 @@ public class PlayerCtrl : MonoBehaviour
 
     void OnJump()   //스페이스바를 누르면 호출되는 함수이다.
     {
+        if(canMove == false)
+        {
+            return;
+        }
         if(CheckIsGround(LayerMask.GetMask("Ground"), out RaycastHit2D hit) && jumpCount == maxJumpCount)
         {
             rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpPower);
@@ -115,6 +170,23 @@ public class PlayerCtrl : MonoBehaviour
             rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpPower);
             jumpCount--;
         }
+    }
+
+    public IEnumerator KnockBack()
+    {
+        canMove = false;
+        isHit = false;
+        rigidbody2D.velocity = new Vector2(knockBackPowerX * (spriteRenderer.flipX ? 1 : -1), knockBackPowerY);
+        yield return new WaitForSeconds(knockBackTime);
+        canMove = true;
+        for(int i=0; i<4; i++)
+        {
+            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0);
+            yield return new WaitForSeconds(invincibilityTime/8);
+            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1);
+            yield return new WaitForSeconds(invincibilityTime/8);
+        }
+        isHit = true;
     }
 
 }
