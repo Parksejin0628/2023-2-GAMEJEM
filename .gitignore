@@ -80,3 +80,4 @@ sum i/Logs/AssetImportWorker1-prev.log
 sum i/Logs/AssetImportWorker0.log
 sum i/Logs/AssetImportWorker0-prev.log
 sum i/UserSettings/Layouts/default-2022.dwlt
+*.log
