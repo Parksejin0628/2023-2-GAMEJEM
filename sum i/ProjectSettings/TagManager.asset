@@ -7,6 +7,11 @@ TagManager:
   - Orange
   - Ground
   - JumpingBlock
+  - Shell
+  - StoneCrab
+  - Mudskipper
+  - Octopus
+  - SolenStrictus
   layers:
   - Default
   - TransparentFX
