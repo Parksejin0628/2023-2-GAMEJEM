@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 
@@ -25,7 +26,7 @@ public class UIManager : MonoBehaviour
     {
         if (SceneStart)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Keyboard.current.spaceKey.wasPressedThisFrame)
             {
                 if (currentIndex >= start_end)
                 {

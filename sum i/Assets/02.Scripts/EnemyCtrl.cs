@@ -14,7 +14,7 @@ public class EnemyCtrl : MonoBehaviour
            octopus,
            taste_clam
     }
-
+    /*
     private int GetMonsterAttack()
     {
         switch (monsterType)
@@ -31,7 +31,7 @@ public class EnemyCtrl : MonoBehaviour
                 return 2;
         }
     }
-    private int GetMoveSpeed()
+   private int GetMoveSpeed()
     {
         switch (monsterType)
         {
@@ -46,11 +46,11 @@ public class EnemyCtrl : MonoBehaviour
             case MonsterType.taste_clam:
                 return 2;
         }
-    }
+    } */
 
-    public int MonsterAttack { get { return GetMonsterAttack(); } }
+   // public int MonsterAttack { get { return GetMonsterAttack(); } }
     [SerializeField]
-    public int moveSpeed { get { return GetMoveSpeed(); } }
+    //public int moveSpeed { get { return GetMoveSpeed(); } }
     private Rigidbody2D Rb;
     public GameObject M_area;
     public Animator M_anim;
@@ -98,7 +98,7 @@ public class EnemyCtrl : MonoBehaviour
             {
                 Flip();
             }
-            transform.Translate(direction * moveSpeed * Time.fixedDeltaTime);
+         //   transform.Translate(direction * moveSpeed * Time.fixedDeltaTime);
         }
 
     }
@@ -133,7 +133,7 @@ public class EnemyCtrl : MonoBehaviour
 
                         //M_anim.SetBool("isWalk", true);
                         isMoving = true;
-                        Rb.velocity = randomDirection * moveSpeed;
+                       // Rb.velocity = randomDirection * moveSpeed;
 
                         //방향 달라질때마다 플립써서 방향전환
                         if (randomDirection.x > 0 && !isFacingRight)
