@@ -65,7 +65,7 @@ public class PlayerCtrl : MonoBehaviour
         {
             rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpingBlockPower);
         }
-        Debug.Log(hit == true);
+        //Debug.Log(hit == true);
         anim.SetBool("isWalk", rigidbody2D.velocity.x != 0);
         anim.SetFloat("velocityY", rigidbody2D.velocity.y);
         anim.SetBool("isFloat", !hit);

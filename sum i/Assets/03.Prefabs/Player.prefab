@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -6367560908665664636, guid: 9f7c02c313b7974449259784a972efe4, type: 3}
+  m_Sprite: {fileID: 1217032381, guid: 4f61bbf8427a8734386d5890c05d00a2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -125,7 +125,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.65625, y: 1.09375}
     newSize: {x: 0.5, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -146,9 +146,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 5
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -179,8 +179,14 @@ MonoBehaviour:
   maxJumpCount: 1
   jumpCount: 1
   maxHp: 8
-  currentHp: 0
+  currentHp: 8
+  knockBackPowerX: 5
+  knockBackPowerY: 8
+  knockBackTime: 0.25
+  invincibilityTime: 1
   jumpingBlockPower: 20
+  canMove: 1
+  isHit: 1
 --- !u!114 &7261623923836383359
 MonoBehaviour:
   m_ObjectHideFlags: 0
