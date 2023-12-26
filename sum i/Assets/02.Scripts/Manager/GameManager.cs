@@ -28,12 +28,16 @@ public class GameManager : MonoBehaviour
     {
         if (isPlayerDead)
         {
-            Fadeout(blackScene);
+            Debug.Log("check black");
+            blackScene = GameObject.Find("BlackScene");
+            StartCoroutine(Fadeout(blackScene));
+            isPlayerDead = false;
         }
         else
         {
-            Debug.Log("check");
-            Fadeout(whiteScene);
+            Debug.Log("check white");
+            whiteScene = GameObject.Find("WhiteScene");
+            StartCoroutine(Fadeout(whiteScene));
         }
     }
 
@@ -52,11 +56,21 @@ public class GameManager : MonoBehaviour
     public IEnumerator Fadeout(GameObject Scene)
     {
         Image SceneImage = Scene.GetComponent<Image>();
-        Scene.SetActive(true);
-        yield return new WaitForSeconds(1f);
-        for (int i = 0; i < 10; i++)
+        SceneImage.color = new Color(SceneImage.color.r, SceneImage.color.g, SceneImage.color.b, 1);
+        for (int i = 0; i < 25; i++)
         {
-            SceneImage.color = new Color(SceneImage.color.r, SceneImage.color.g, SceneImage.color.b, SceneImage.color.a - 0.1f);
+            SceneImage.color = new Color(SceneImage.color.r, SceneImage.color.g, SceneImage.color.b, SceneImage.color.a - (1/25f));
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    public IEnumerator Fadein(GameObject Scene)
+    {
+        Image SceneImage = Scene.GetComponent<Image>();
+        SceneImage.color = new Color(SceneImage.color.r, SceneImage.color.g, SceneImage.color.b, 0);
+        for (int i = 0; i < 25; i++)
+        {
+            SceneImage.color = new Color(SceneImage.color.r, SceneImage.color.g, SceneImage.color.b, SceneImage.color.a + (1 / 25f));
             yield return new WaitForSeconds(0.1f);
         }
     }

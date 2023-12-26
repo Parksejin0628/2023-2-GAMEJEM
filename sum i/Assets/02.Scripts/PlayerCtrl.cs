@@ -29,7 +29,8 @@ public class PlayerCtrl : MonoBehaviour
     public float jumpingBlockPower = 15.0f;
     public bool canMove = true;
     public bool isHit = true;
-    public string SceneName = "Main Scene";
+    public string nowSceneName = "Main Scene";
+    public string endSceneName = "End Scene";
 
     Vector2 wasdVector;
 
@@ -49,10 +50,17 @@ public class PlayerCtrl : MonoBehaviour
             currentHp = 0;
             //GameOver
         }
+        if(currentHp == maxHp && canMove)
+        {
+            canMove = false;
+            Invoke("EndGame", 2.5f);
+            StartCoroutine(GameManager.instance.Fadein(GameObject.Find("WhiteScene")));
+        }
         if(currentHp>maxHp)
         {
             currentHp = maxHp;
             //GameEnding
+            
         }
     }
 
@@ -206,6 +214,9 @@ public class PlayerCtrl : MonoBehaviour
         isHit = true;
     }
 
-
+    public void EndGame()
+    {
+        SceneManager.LoadScene(endSceneName);
+    }
 
 }

@@ -4,15 +4,15 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Orange
-  - Ground
-  - JumpingBlock
-  - Shell
-  - StoneCrab
-  - Mudskipper
-  - Octopus
-  - SolenStrictus
   - Wall
+  - JumpingBlock
+  - Orange
+  - StoneCrab
+  - SolenStrictus
+  - Wave
+  - Mudskipper
+  - Shell
+  - Octopus
   layers:
   - Default
   - TransparentFX

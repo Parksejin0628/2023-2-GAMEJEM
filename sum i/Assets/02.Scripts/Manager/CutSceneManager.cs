@@ -27,9 +27,16 @@ public class CutSceneManager : MonoBehaviour
         }
         if (currentCutIndex == cutScenes.Length)
         {
-            SceneManager.LoadScene(nextSceneName);
+            StartCoroutine(GameManager.instance.Fadein(GameObject.Find("WhiteScene")));
+            Invoke("NextScene", 2.5f);
             AudioManager.Inst.StopAllSFX();
+            currentCutIndex++;
         }
 
+    }
+
+    void NextScene()
+    {
+        SceneManager.LoadScene(nextSceneName);
     }
 }
