@@ -12,6 +12,8 @@ public class UIManager : MonoBehaviour
     static public UIManager instance;
     public GameObject player;
     private PlayerCtrl playerCtrl;
+    public GameObject waveTime;
+    private wave_time waveTimeCtrl;
 
 
     //
@@ -21,6 +23,8 @@ public class UIManager : MonoBehaviour
     const int start_end = 1;
     //hp와 관련된 변수
     public GameObject[] hpEmptyObject;
+    //wave와 관련된 변수
+    public Image WaveImage;
 
     // Start is called before the first frame update
 
@@ -33,6 +37,7 @@ public class UIManager : MonoBehaviour
         //SceneStart = true;
         SetActiveImage(currentIndex);
         playerCtrl = player.GetComponent<PlayerCtrl>();
+        waveTimeCtrl = waveTime.GetComponent<wave_time>();
     }
 
     // Update is called once per frame
@@ -56,6 +61,7 @@ public class UIManager : MonoBehaviour
             }
         }
         UpdateHpUI();
+        UpdateWaveTimeUI();
     }
 
     // 현재 인덱스에 해당하는 이미지를 활성화하고 나머지는 비활성화
@@ -82,6 +88,18 @@ public class UIManager : MonoBehaviour
             {
                 hpEmptyObject[i].SetActive(false);
             }
+        }
+    }
+
+    void UpdateWaveTimeUI()
+    {
+        if(waveTimeCtrl.isUpWave == true)
+        {
+            WaveImage.fillAmount = waveTimeCtrl.waveTime / waveTimeCtrl.UpWaveTime;
+        }
+        else if (waveTimeCtrl.isUpWave == false)
+        {
+            WaveImage.fillAmount = waveTimeCtrl.waveTime / waveTimeCtrl.DownWaveTime;
         }
     }
 }

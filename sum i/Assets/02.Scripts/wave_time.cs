@@ -6,13 +6,17 @@ public class wave_time : MonoBehaviour
 {
     private GameObject cameraObject;
     Rigidbody2D rigid;
+    public float waveTime;
     public float UpWaveTime;
     public float DownWaveTime;
     public float UpWaveLength;
     public float DownWaveLength;
+    public float Wavingtime;
     public GameObject wave;
     public int waveTurn = 0;
     public int maxWaveTurn = 7;
+    public bool isUpWave = true;
+    public bool isWave = false;
     
     // Start is called before the first frame update
     void Start()
@@ -29,8 +33,10 @@ public class wave_time : MonoBehaviour
 
     IEnumerator Move()
     {
+
         while (true)
         {
+            /*
             yield return new WaitForSeconds(UpWaveTime);
             if (waveTurn == maxWaveTurn)
             {
@@ -45,6 +51,46 @@ public class wave_time : MonoBehaviour
             Debug.Log("물내려가는소리");
 
             waveTurn++;
+            */
+            yield return new WaitForSeconds(0.05f);
+            waveTime += 0.05f;
+            if (isUpWave && waveTime >= UpWaveTime + Wavingtime)
+            {
+                waveTime = 0;
+                isUpWave = false;
+                isWave = false;
+                if (waveTurn >= maxWaveTurn)
+                {
+                    yield break;
+                }
+            }
+            else if (isUpWave && waveTime >= UpWaveTime)
+            {
+                if(!isWave)
+                {
+                    isWave = true;
+                    AudioManager.Inst.PlaySFX("ship_sound");
+                }
+                this.transform.Translate(new Vector3(0, UpWaveLength / Wavingtime * 0.05f, 0));
+            }
+            else if (!isUpWave && waveTime >= DownWaveTime + Wavingtime)
+            {
+                waveTime = 0;
+                isUpWave = true;
+                isWave = false;
+                waveTurn++;
+                
+            }
+            else if (!isUpWave && waveTime >= DownWaveTime)
+            {
+                if (!isWave)
+                {
+                    AudioManager.Inst.PlaySFX("water");
+                    isWave = true;
+                }
+                this.transform.Translate(new Vector3(0, DownWaveLength / Wavingtime * 0.05f, 0));
+            }
+
         }
     }
 }
