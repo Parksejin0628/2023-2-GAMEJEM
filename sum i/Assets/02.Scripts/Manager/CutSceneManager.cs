@@ -13,7 +13,7 @@ public class CutSceneManager : MonoBehaviour
     public GameObject[] cutScenes;
     void Start()
     {
-        AudioManager.Inst.PlaySFX("DoneSong__Island_Kid");
+        
     }
 
     // Update is called once per frame
@@ -28,7 +28,6 @@ public class CutSceneManager : MonoBehaviour
         if (currentCutIndex == cutScenes.Length)
         {
             SceneManager.LoadScene(nextSceneName);
-            AudioManager.Inst.StopAllSFX();
         }
 
     }

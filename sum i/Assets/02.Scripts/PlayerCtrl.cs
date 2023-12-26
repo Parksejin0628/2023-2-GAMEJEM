@@ -33,7 +33,6 @@ public class PlayerCtrl : MonoBehaviour
 
     void Start()
     {
-        AudioManager.Inst.PlayBGM("DoneEffect__Anxiety");
         rigidbody2D = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
@@ -75,7 +74,6 @@ public class PlayerCtrl : MonoBehaviour
     {
         if(coll.CompareTag("Orange") && currentHp<maxHp)
         {
-            AudioManager.Inst.PlaySFX("equip_mandarine");
             currentHp++;
             coll.gameObject.SetActive(false);
         }
@@ -155,8 +153,6 @@ public class PlayerCtrl : MonoBehaviour
         }
         if(CheckIsGround(LayerMask.GetMask("Ground"), out RaycastHit2D hit) && jumpCount == maxJumpCount)
         {
-            AudioManager.Inst.PlaySFX("jumped");
-
             rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpPower);
             jumpCount--;
         }
