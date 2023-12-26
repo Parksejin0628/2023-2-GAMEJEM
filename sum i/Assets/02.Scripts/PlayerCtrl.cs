@@ -28,7 +28,7 @@ public class PlayerCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void FixedUpdate()
@@ -37,6 +37,15 @@ public class PlayerCtrl : MonoBehaviour
         if (rigidbody2D.velocity.y < 0 && CheckIsGround(LayerMask.GetMask("Ground"), out RaycastHit2D hit))
         {
             jumpCount = maxJumpCount;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D coll)
+    {
+        if(coll.CompareTag("Orange") && currentHp<maxHp)
+        {
+            currentHp++;
+            coll.gameObject.SetActive(false);
         }
     }
 
