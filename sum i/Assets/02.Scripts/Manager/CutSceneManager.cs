@@ -13,7 +13,8 @@ public class CutSceneManager : MonoBehaviour
     public GameObject[] cutScenes;
     void Start()
     {
-        
+
+
     }
 
     // Update is called once per frame
@@ -22,14 +23,18 @@ public class CutSceneManager : MonoBehaviour
         
         if (Input.anyKeyDown && currentCutIndex < cutScenes.Length)
         {
+            AudioManager.Inst.PlaySFX("button_push");
             cutScenes[currentCutIndex].SetActive(false);
             currentCutIndex++;
         }
         if (currentCutIndex == cutScenes.Length)
         {
             StartCoroutine(GameManager.instance.Fadein(GameObject.Find("WhiteScene")));
+            
             Invoke("NextScene", 2.5f);
-            AudioManager.Inst.StopAllSFX();
+
+            AudioManager.Inst.PlaySFX("transition");
+            AudioManager.Inst.StopBGM();
             currentCutIndex++;
         }
 
@@ -37,6 +42,7 @@ public class CutSceneManager : MonoBehaviour
 
     void NextScene()
     {
+        
         SceneManager.LoadScene(nextSceneName);
     }
 }

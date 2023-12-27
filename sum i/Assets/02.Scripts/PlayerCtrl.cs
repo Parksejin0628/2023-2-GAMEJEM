@@ -78,6 +78,7 @@ public class PlayerCtrl : MonoBehaviour
         }
         if(hit == true && hit.collider.CompareTag("JumpingBlock"))
         {
+            AudioManager.Inst.PlaySFX("jumped");
             rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpingBlockPower);
         }
         //Debug.Log(hit == true);

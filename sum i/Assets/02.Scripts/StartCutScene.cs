@@ -7,7 +7,7 @@ public class StartCutScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        AudioManager.Inst.PlaySFX("transition");
+        
 
     }
 
