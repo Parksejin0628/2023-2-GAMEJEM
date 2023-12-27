@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 43692180}
   - component: {fileID: 43692182}
   - component: {fileID: 43692181}
+  - component: {fileID: 43692183}
   m_Layer: 5
   m_Name: StartCutScene_last
   m_TagString: Untagged
@@ -198,6 +199,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 43692179}
   m_CullTransparentMesh: 1
+--- !u!114 &43692183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43692179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f224bca403af354f877c387a25871f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &162966436
 GameObject:
   m_ObjectHideFlags: 0

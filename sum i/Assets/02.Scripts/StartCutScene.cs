@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ButtonSound : MonoBehaviour
+public class StartCutScene : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        AudioManager.Inst.PlayBGM("DoneSong__Island_Kid");
+        AudioManager.Inst.PlaySFX("transition");
 
     }
 
@@ -15,10 +15,5 @@ public class ButtonSound : MonoBehaviour
     void Update()
     {
         
-    }
-
-    public void ButtonSFX()
-    {
-        AudioManager.Inst.PlaySFX("button_push");
     }
 }

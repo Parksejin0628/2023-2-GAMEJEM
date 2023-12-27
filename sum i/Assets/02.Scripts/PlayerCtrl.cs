@@ -53,6 +53,9 @@ public class PlayerCtrl : MonoBehaviour
         if(currentHp == maxHp && canMove)
         {
             canMove = false;
+            AudioManager.Inst.StopAllCoroutines();
+            AudioManager.Inst.PlaySFX("transition");
+            
             Invoke("EndGame", 2.5f);
             StartCoroutine(GameManager.instance.Fadein(GameObject.Find("WhiteScene")));
         }

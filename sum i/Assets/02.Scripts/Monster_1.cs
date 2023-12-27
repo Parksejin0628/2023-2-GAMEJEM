@@ -41,8 +41,6 @@ public class Monster_1 : MonoBehaviour
             RaycastHit2D hitLeft = Physics2D.Raycast(finder.position, Vector2.left, raycastDistance);
             RaycastHit2D hitRight = Physics2D.Raycast(finder.position, Vector2.right, raycastDistance);
 
-            Debug.Log("Left Hit Collider: " + hitLeft.collider);
-            Debug.Log("Right Hit Collider: " + hitRight.collider);
             if ((hitLeft.collider != null && hitLeft.collider.CompareTag("Player")))
             {
                 direction = Vector2.left;
